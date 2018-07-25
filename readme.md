@@ -2,6 +2,8 @@
 
 qr code generator service
 
+![example](./example/logo.png)
+
 ## Run
 
 ```shell
