@@ -3,7 +3,7 @@ const render = require('./render')
 const svg2img = require('svg2img');
 
 const options = {
-  errorCorrectionLevel: 'M',
+  errorCorrectionLevel: 'H',
   margin: 1,
   width: 512
 }
