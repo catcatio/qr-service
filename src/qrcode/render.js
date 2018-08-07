@@ -54,6 +54,7 @@ const renderSvg = (qrData, options) => {
   const opts = Utils.getOptions(options)
   const size = qrData.modules.size
   const data = qrData.modules.data
+  const mask = options.mask
   const qrcodesize = size + opts.margin * 2
   const targetWidth = opts.width || 512
   const unitSize = targetWidth / qrcodesize
@@ -72,7 +73,7 @@ const renderSvg = (qrData, options) => {
 
 
   const logoSize = Math.ceil(0.3 * size) // 30 % of QR size
-  const center = Math.ceil(size / 2) + offset
+  const center = Math.ceil(size / 2) + offset - 1
   const logoMargin = Math.floor(logoSize / 2)
   const logoScale = (logoSize * unitSize) / 512 // assume current logo size is 512
 
@@ -82,7 +83,7 @@ const renderSvg = (qrData, options) => {
   const rects = [...data].map((d, i) => {
     const col = Math.floor(i % size) + 0.5 + offset
     const row = Math.floor(i / size) + 0.5 + offset
-    return `<circle cx="${col}" cy="${row}" r="0.3" stroke="black" stroke-width="0" fill="${d ? 'black':'transparent'}" />`
+    return `<circle cx="${col}" cy="${row}" r="${(mask && mask[i] ? 0.5 : 0.3)}" stroke="black" stroke-width="0" fill="${d ? (mask && mask[i] ? 'darkred' : 'black'): (mask && mask[i] ? 'pink' : 'transparent') }" />`
   }).filter((d, i) => {
     const col = Math.floor(i % size) + 0.5 + offset
     const row = Math.floor(i / size) + 0.5 + offset
