@@ -2,7 +2,7 @@
 
 qr code generator service
 
-![example](./example/logo.png)
+<img alt="example" src="./example/logo.png" width="250">
 
 ## Run
 
@@ -11,6 +11,8 @@ npm i
 
 npm run dev
 ```
+
+GET `http://localhost:3000/qr?d=https://github.com/catcatio/qrservice`
 
 POST `http://localhost:3000/qr`
 
