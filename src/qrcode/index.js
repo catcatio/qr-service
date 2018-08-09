@@ -2,7 +2,6 @@ const qr = require('qrcode')
 const render = require('./render')
 const textMask = require('./textMask')
 const svg2img = require('svg2img');
-const fs = require('fs');
 const logoBuilder = require('./logoBuilder')
 
 const defaultOptions = {
@@ -43,7 +42,6 @@ const makeQRCode = async (text, {logoUrl, logoText = '', maskTextLine1 = '', mas
   }
 
   const svg = render(code, options)
-  fs.writeFileSync('out.svg', svg)
   console.log(`  render():\t\t${Date.now() - startTime}`); startTime = Date.now()
 
   const img = await svg2imgAsync(svg)
