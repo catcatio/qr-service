@@ -5,7 +5,7 @@ const svg2img = require('svg2img');
 const fs = require('fs');
 const logoBuilder = require('./logoBuilder')
 
-const options = {
+const defaultOptions = {
   errorCorrectionLevel: 'H',
   margin: 1,
   width: 512
@@ -22,11 +22,17 @@ const svg2imgAsync = (svg) => new Promise((resolve, reject) => {
 })
 
 const makeQRCode = async (text, {logoUrl, logoText = '', maskTextLine1 = '', maskTextLine2 = ''} = {}) => {
-  let startTime = Date.now()
-  const logoSvg = logoUrl && await logoBuilder.build(logoUrl, logoText)
+  console.log('start makeQRCode');
+  let begin = startTime = Date.now()
+
+  const options = Object.assign({}, defaultOptions)
   const code = qr.create(text, options)
+  console.log(`  qr.create():\t\t${Date.now() - startTime}`); startTime = Date.now()
+
   const mask = textMask(maskTextLine1, maskTextLine2, code.modules.size)
-  console.log(`qr.create(): ${Date.now() - startTime}`); startTime = Date.now()
+  console.log(`  textMask():\t\t${Date.now() - startTime}`); startTime = Date.now()
+  const logoSvg = logoUrl && await logoBuilder.build(logoUrl, logoText)
+  console.log(`  logoBuilder.build():\t${Date.now() - startTime}`); startTime = Date.now()
 
   if (mask && code.modules.size > 28) {
     options.mask = mask
@@ -38,8 +44,12 @@ const makeQRCode = async (text, {logoUrl, logoText = '', maskTextLine1 = '', mas
 
   const svg = render(code, options)
   fs.writeFileSync('out.svg', svg)
-  console.log(`render(): ${Date.now() - startTime}`);
-  return svg2imgAsync(svg)
+  console.log(`  render():\t\t${Date.now() - startTime}`); startTime = Date.now()
+
+  const img = await svg2imgAsync(svg)
+  console.log(`  svg2imgAsync():\t${Date.now() - startTime}`);
+  console.log(`total makeQRCode:\t${Date.now() - begin}`);
+  return img
 }
 
 module.exports = {
