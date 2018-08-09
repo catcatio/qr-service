@@ -28,12 +28,12 @@ const getProtectedRegionDetector = (size, margin, logoProtected = false) => {
 const eyeFrameOuterTemplate = '<path xmlns="http://www.w3.org/2000/svg" d="M100,66.221V33.75C100,15.141,84.68,0,65.859,0H34.14C15.32,0,0,15.141,0,33.75V100l65.859-0.02   C84.68,99.98,100,84.84,100,66.221z M85,66.221c0,10.344-8.586,18.76-19.145,18.76L15,84.996V33.75C15,23.411,23.586,15,34.14,15   h31.719C76.414,15,85,23.411,85,33.75V66.221z"/>'
 const eyeFrameInnerTemplate = '<path xmlns="http://www.w3.org/2000/svg" style="fill:none;" d="M85,66.221V33.75C85,23.411,76.414,15,65.859,15H34.14C23.586,15,15,23.411,15,33.75v51.246   l50.855-0.016C76.414,84.98,85,76.564,85,66.221z"/>'
 const eyeBallTemplate = '<path xmlns="http://www.w3.org/2000/svg" d="M100,72.779V27.195C100,12.203,87.604,0,72.37,0H27.63C12.397,0,0,12.203,0,27.195V100l72.37-0.042  C87.604,99.958,100,87.771,100,72.779z"/>'
-let logoSvg = ''
-try {
-  logoSvg = fs.readFileSync('logo.svg', {encoding: 'utf8'})
-} catch(error) {
-  console.log(error)
-}
+
+// try {
+//   logoSvg = fs.readFileSync('logo.svg', {encoding: 'utf8'})
+// } catch(error) {
+//   console.log(error)
+// }
 
 // const eyeBall = '<path xmlns="http://www.w3.org/2000/svg" style="fill:none;" d="M.85,.66221V.3375C.85,.23411,.76414,.15,.65859,.15H.3414C.23586,.15,.15,.23411,.15,.3375v.51246   l.50855-0.016C.76414,.8498,.85,.76564,.85,.66221z"/>'
 
@@ -58,6 +58,7 @@ const renderSvg = (qrData, options) => {
   const qrcodesize = size + opts.margin * 2
   const targetWidth = opts.width || 512
   const unitSize = targetWidth / qrcodesize
+  const logoSvg = options.logoSvg
 
   const offset = opts.margin || 0
 
@@ -83,7 +84,7 @@ const renderSvg = (qrData, options) => {
   const rects = [...data].map((d, i) => {
     const col = Math.floor(i % size) + 0.5 + offset
     const row = Math.floor(i / size) + 0.5 + offset
-    return `<circle cx="${col}" cy="${row}" r="${(mask && mask[i] ? 0.5 : 0.3)}" stroke="black" stroke-width="0" fill="${d ? (mask && mask[i] ? 'darkred' : 'black'): (mask && mask[i] ? 'pink' : 'transparent') }" />`
+    return `<circle cx="${col}" cy="${row}" r="${(mask && mask[i] ? 0.3 : 0.3)}" fill="${d ? (mask && mask[i] ? 'red' : 'black'): (mask && mask[i] ? 'pink' : 'transparent') }" />`
   }).filter((d, i) => {
     const col = Math.floor(i % size) + 0.5 + offset
     const row = Math.floor(i / size) + 0.5 + offset
@@ -113,3 +114,4 @@ const render = (qrData, options) => {
 }
 
 module.exports = render
+

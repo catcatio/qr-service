@@ -4,8 +4,9 @@ const routers = (stellarEngine, qrGenerator) => {
   const { makeQRCode } = require('../qrcode')
 
   router.post('/qr', (req, res) => {
-    const text = req.body.payload
-    return makeQRCode(text).then(imgBuffer => {
+    const text = req.body.text
+
+    return makeQRCode(text, req.body).then(imgBuffer => {
       res.writeHead(200, {
         'Content-Type': 'image/png',
         'Content-Length': imgBuffer.length
