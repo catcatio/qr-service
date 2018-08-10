@@ -21,6 +21,7 @@ const svg2imgAsync = (svg) => new Promise((resolve, reject) => {
 })
 
 const makeQRCode = async (text, {logoUrl, logoText = '', maskTextLine1 = '', maskTextLine2 = ''} = {}) => {
+  console.log({logoUrl, logoText, maskTextLine1, maskTextLine2})
   console.log('start makeQRCode');
   let begin = startTime = Date.now()
 
