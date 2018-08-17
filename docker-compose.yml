@@ -9,10 +9,12 @@ services:
     env_file: .env
     environment:
       - PORT=${PORT:-9095}
+      - PM2_PORT=${PM2_PORT:-8095}
     image: catcatio/qrservice
     working_dir: /usr/app
     ports:
       - "${PORT:-9095}:${PORT:-9095}"
+      - "${PM2_PORT:-8095}:${PM2_PORT:-8095}"
     volumes:
       - .:/usr/app
-    command: npm run init
+    command: sh scripts/startup.sh
