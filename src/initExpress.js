@@ -8,7 +8,7 @@ module.exports = (config) => new Promise((resolve, reject) => {
 
   // setup middlewares
   app.use(cors())
-  app.use(bodyParser.json())
+  // app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(responseTime())
 
