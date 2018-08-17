@@ -1,6 +1,6 @@
 FROM keymetrics/pm2:8-alpine
 
-ENV NODE_ENV develop
+ENV NODE_ENV production
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 
