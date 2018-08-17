@@ -26,3 +26,8 @@ POST `http://localhost:3000/qr`
   "maskTextLine2": "inc"
 }
 ```
+
+## Performance tuning
+
+- Use [`node-lru-cache`](https://github.com/isaacs/node-lru-cache) to store processed qrcode, its option set to 500 max item for 7 days
+
