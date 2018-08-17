@@ -23,16 +23,19 @@ const loadImageFromUrl = (url) => {
   return doRequest(url).then((response) => {
     const data = response.data
     const imageBase64 = (Buffer.isBuffer(data)) ? data.toString('base64') : btoa(data);
-    return `data:${response.contentType};base64,${imageBase64}`;
+    return [`data:${response.contentType};base64,${imageBase64}`, false]
   }).catch(err => {
     console.log(err)
-    return defaultLog.dataUri
+    return [defaultLog.dataUri, true]
   })
 }
 
 const build = async (logoUrl, logoText) => {
-  const logoDataUri = await loadImageFromUrl(logoUrl)
-  return logoTemplate(logoText, logoDataUri)
+  const [logoDataUri, isFallbackImage] = await loadImageFromUrl(logoUrl)
+  return {
+    logoSvg:logoTemplate(logoText, logoDataUri),
+    isFallbackImage
+  }
 }
 
 module.exports = {

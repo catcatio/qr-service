@@ -1,3 +1,5 @@
+require('./utils/md5')
+
 module.exports = (config) => {
   let app
   const start = async () => {
