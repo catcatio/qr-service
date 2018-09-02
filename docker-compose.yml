@@ -14,7 +14,12 @@ services:
     working_dir: /usr/app
     ports:
       - "${PORT:-9095}:${PORT:-9095}"
-      - "${PM2_PORT:-8095}:${PM2_PORT:-8095}"
+      - "${PM2_PORT:-9615}:${PM2_PORT:-9615}"
     volumes:
       - .:/usr/app
+    logging:
+      driver: gelf
+      options:
+        gelf-address: udp://localhost:${LS_PORT:-12201}
+        tag: "qr-service"
     command: sh scripts/startup.sh
