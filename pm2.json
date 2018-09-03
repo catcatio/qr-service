@@ -1,7 +1,12 @@
 [{
     "name": "qr-service",
-    "script": "nodemon_bootstrap.js",
+    "script": "src/index.js",
     "instances": "1",
+    "exec_mode": "cluster",
+    "ignore_watch": [
+      "node_modules"
+    ],
+    "watch": true,
     "env": {
       "NODE_ENV": "production"
     }
