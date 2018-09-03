@@ -4,7 +4,8 @@
     "instances": "1",
     "exec_mode": "cluster",
     "ignore_watch": [
-      "node_modules"
+      "node_modules",
+      ".git"
     ],
     "watch": true,
     "env": {
