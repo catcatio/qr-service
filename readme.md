@@ -13,7 +13,16 @@ npm i
 npm run dev
 ```
 
-GET `http://localhost:3000/qr?d=https://github.com/catcatio/qrservice`
+GET `http://localhost:3000/qr?text=https://github.com/catcatio/qrservice&logoUrl=https://pbs.twimg.com/profile_images/972154872261853184/RnOg6UyU_400x400.jpg&logoText=@google&maskTextLine1=GOOGLE&maskTextLine2=inc`
+
+```bash
+curl http://localhost:3000/qr?\
+text=https://github.com/catcatio/qrservice&\
+logoUrl=https://pbs.twimg.com/profile_images/972154872261853184/RnOg6UyU_400x400.jpg&\
+logoText=@google&\
+maskTextLine1=GOOGLE&\
+maskTextLine2=inc
+```
 
 POST `http://localhost:3000/qr`
 
